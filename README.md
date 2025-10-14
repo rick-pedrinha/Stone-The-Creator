@@ -3,7 +3,7 @@ Stone The Creator — estudo de HTML/CSS (com JS)
 
 Site estático com estética psicodélica: tipografia futurista, layout responsivo, galeria, lançamentos, player de áudio (WAV/MP3) e vídeos do YouTube. Feito só com **HTML + CSS + JS leve**, pensado para **GitHub Pages**.
 
-![preview](img/preview.png)
+http://127.0.0.1:5500/index.html
 
 ## Demo
 🔗 https://SEU-USUARIO.github.io/stone-the-creator/  <!-- troque quando publicar -->
