@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stone The Creator</title>
+
+  <!-- Favicon (evita 404) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B5%3C/text%3E%3C/svg%3E">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+
+  <!-- CSS embutido -->
+  <style>
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    img{ max-width:100%; height:auto; display:block; }
+
+    /* Tokens */
+    :root{
+      --bg:#14121a; --surface:#1a1722;
+      --ink:#f3f1f5; --ink-soft:#d7d3dc; --ink-muted:#a7a0ad;
+      --s2:12px; --s3:18px; --s4:24px; --s5:36px; --s6:56px;
+      --r1:14px; --r2:22px;
+    }
+
+    /* Base */
+    body{ background:
+            radial-gradient(1000px 600px at 10% 5%, rgba(255,122,217,.08), transparent 60%),
+            radial-gradient(1000px 600px at 90% 15%, rgba(110,247,234,.08), transparent 60%),
+            var(--bg);
+          color:var(--ink); font-family:"Inter",system-ui,sans-serif; line-height:1.7;
+          padding: min(5vw, var(--s6)); }
+    .container{ width:min(1050px,94vw); margin:0 auto; }
+
+    /* Cabeçalho */
+    .site{ display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+           padding:var(--s4); border-radius:var(--r2);
+           background:var(--surface); border:1px solid rgba(255,255,255,.08); }
+    .brand{ display:flex; align-items:center; gap:18px; }
+    .avatar{
+      width:70px; height:70px; border-radius:50%;
+      background-image:url("WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg");
+      background-size:cover; background-position:center;
+      border:2px solid #00ff4d; box-shadow:0 0 0 2px #0f2912;
+    }
+    .site-title{
+      font-family:"Orbitron",system-ui,sans-serif; font-weight:900;
+      font-size:clamp(2.6rem,3.6vw + 1rem,4.2rem); line-height:1.05; letter-spacing:1px;
+      background:linear-gradient(180deg,#00ff4d 0%,#b4ff00 90%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      -webkit-text-stroke:1px #0f2912;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .site-sub{ color:var(--ink-muted); }
+
+    .nav{ display:flex; gap:10px; flex-wrap:wrap; }
+    .nav a{ text-decoration:none; color:#0e0e12; font-weight:800; padding:10px 14px; border-radius:999px;
+            background:linear-gradient(135deg,#c5ff5e,#6ef7ea); }
+
+    /* Hero */
+    .hero{ display:grid; gap:var(--s4); grid-template-columns:1.1fr .9fr; margin:var(--s5) 0; }
+    @media (max-width:900px){ .hero{ grid-template-columns:1fr; } }
+    .copy{ background:rgba(255,255,255,.06); border:1px dashed rgba(255,255,255,.15); border-radius:var(--r2); padding:var(--s4); }
+    .hero-title{ font-family:"Fraunces",serif; font-size:clamp(1.6rem,2.4vw,2.2rem); color:var(--ink); margin-bottom:var(--s2); }
+    .cta{ display:flex; gap:10px; margin-top:var(--s3); }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; font-weight:800; text-decoration:none; color:#0f1214; background:linear-gradient(135deg,#6ef7ea,#ff7ad9); border:none; }
+    .btn-ghost{ background:transparent; color:var(--ink); border:1px dashed rgba(255,255,255,.3); }
+
+    /* Figura principal */
+    .figure-blob{ max-width:420px; margin:0 auto; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:var(--r2); padding:var(--s2); }
+    .figure-blob img{ width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; max-height:320px; }
+    figcaption{ color:var(--ink-soft); font-size:.95rem; margin-top:8px; text-align:center; }
+
+    /* Seções */
+    .section{ margin:var(--s6) 0; padding:var(--s4); border-radius:var(--r2); background:var(--surface); border:1px solid rgba(255,255,255,.08); }
+    .section h2{ font-family:"Fraunces",serif; font-size:clamp(1.4rem,2.5vw,2rem); margin-bottom:8px; }
+    .section p{ color:var(--ink-soft); }
+
+    /* Galeria */
+    .gallery{ display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:18px; margin-top:12px; }
+    .tile{ max-width:260px; margin:0 auto; overflow:hidden; border-radius:16px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); }
+    .caption{ padding:8px 10px; color:#fff; background:rgba(0,0,0,.45); font-size:.85rem; }
+
+    /* Player */
+    .player{ display:grid; gap:18px; padding:24px; border-radius:var(--r2); background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); }
+    .player-header{ display:flex; align-items:center; gap:14px; }
+    .player .cover{ width:88px; height:88px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.1); }
+    .now-playing-title{ font-family:"Fraunces",serif; margin:2px 0 0; }
+    .audio-bar{ width:100%; }
+    .tracklist{ list-style:none; display:grid; gap:12px; padding:0; margin:0; }
+    .track{ display:grid; grid-template-columns:32px 1fr auto; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); cursor:pointer; }
+    .track.active{ background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); border-color:rgba(110,247,234,.5); }
+    .btn.btn-mini{ padding:8px 12px; font-size:.9rem; border:none; border-radius:999px; background:linear-gradient(135deg,#6ef7ea,#ff7ad9); color:#0e0e12; font-weight:800; }
+    .controls-row{ display:flex; gap:12px; justify-content:flex-end; }
+
+    /* Contato (grid bonito) */
+    .contact-form { margin-top: 16px; }
+    .contact-form .grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .contact-form .field label {
+      display:block; margin-bottom:6px; font-weight:600; color:var(--ink-soft);
+    }
+    .contact-form .field input,
+    .contact-form .field textarea{
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06);
+      color:var(--ink); font:inherit; line-height:1.5;
+    }
+    .contact-form .field textarea{ min-height:140px; resize:vertical; }
+    .contact-form .span-2{ grid-column:span 2; }
+    .contact-form .actions{
+      grid-column:span 2; display:flex; gap:12px; justify-content:flex-end; align-items:center; margin-top:4px;
+    }
+    @media (max-width: 720px){
+      .contact-form .grid{ grid-template-columns:1fr; }
+      .contact-form .span-2, .contact-form .actions{ grid-column:span 1; }
+      .contact-form .actions .btn{ width:100%; }
+    }
+
+    /* Footer */
+    footer{ text-align:center; color:var(--ink-muted); margin: var(--s6) 0 12px; }
+
+    /* ====== Estilo escopado pro vídeo (nocookie, responsivo) ====== */
+    .yt-wrap{
+      position: relative; width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+      background: rgba(255,255,255,.04);
+      margin-top: 12px;
+    }
+    .yt-wrap iframe{
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header class="site">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h1 class="site-title">Stone The Creator</h1>
+          <p class="site-sub">Psytrance • Arte • Imersão sonora</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#albuns">Álbuns</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#lancamentos">Lançamentos</a>
+        <a href="#video">Vídeo</a> <!-- novo no menu -->
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Destaque">
+      <div class="copy">
+        <h2 class="hero-title">Arte que conversa com você</h2>
+        <p class="lead">
+          Camadas hipnóticas, atmosferas psicodélicas e energia pulsante.
+          Cada faixa é uma jornada — uma história contada por frequências,
+          ritmos e sensações.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#galeria">Ver trabalhos</a>
+          <a class="btn btn-ghost" href="#sobre">Saber mais</a>
+        </div>
+      </div>
+
+      <figure class="figure-blob">
+        <img
+          src="WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg"
+          alt="Stone The Creator segurando um skate"
+          loading="eager"
+        />
+        <figcaption>“Aurora Urbana” — série 2025 sobre luz, ritmo e memória.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="section" aria-labelledby="sobre-title">
+      <h2 id="sobre-title">Sobre</h2>
+      <p>
+        Henrique Pedrinha, produtor musical de Brasília (DF), é o nome por trás do
+        projeto <strong>Stone The Creator</strong>, uma imersão profunda no universo da
+        música eletrônica. Suas produções (138–145 BPM) mesclam camadas hipnóticas,
+        atmosferas psicodélicas e uma energia pulsante que transforma cada faixa em
+        uma experiência sensorial completa.
+      </p>
+      <p>
+        Em 2025, Henrique deu um passo decisivo ao assinar com a gravadora
+        <strong>Astralics</strong>, ampliando o alcance de suas músicas nas plataformas
+        digitais e nas pistas.
+      </p>
+      <blockquote>
+        “Nos palcos, o set é jornada: transições precisas, graves envolventes e controle de energia do início ao fim.”
+      </blockquote>
+    </section>
+
+    <!-- Álbum -->
+    <section id="albuns" class="section" aria-labelledby="albuns-title">
+      <h2 id="albuns-title">Meu primeiro álbum de Psytrance</h2>
+      <p>
+        <strong>Atlantis</strong> abriu as portas para um universo subaquático de
+        frequências psicodélicas, estabelecendo a identidade sonora do projeto.
+      </p>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="section" aria-labelledby="galeria-title">
+      <h2 id="galeria-title">Galeria</h2>
+      <p>Algumas peças recentes. Passe o mouse para sentir o movimento.</p>
+
+      <div class="gallery">
+        <figure class="tile">
+          <img src="Captura%20de%20tela%202025-10-14%20174158.png" alt="Visual do projeto em tela" loading="lazy" />
+          <figcaption class="caption">Poster • 2025</figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg" alt="Retrato estilizado do artista" loading="lazy" />
+          <figcaption class="caption">Retrato • 2025</figcaption>
+        </figure>
+
+        <figure class="tile">
+          <img src="Captura%20de%20tela%202025-10-14%20174158.png" alt="Arte digital geometrizada" loading="lazy" />
+          <figcaption class="caption">Arte Digital • 2024</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Lançamentos -->
+    <section id="lancamentos" class="section" aria-labelledby="lancamentos-title">
+      <h2 id="lancamentos-title">Lançamentos</h2>
+      <ul>
+        <li><strong>“Quantum Genius”</strong> — Single (2025)</li>
+        <li><strong>“Atlantis”</strong> — EP (2024)</li>
+        <li><strong>Collab</strong> com Synister (2025)</li>
+      </ul>
+    </section>
+
+    <!-- VÍDEO (novo) -->
+     <!-- VÍDEO (agora com 3 players) -->
+<section id="video" class="section" aria-labelledby="video-title">
+  <h2 id="video-title">Vídeo</h2>
+  <p>Assista aos visuais do projeto:</p>
+
+  <!-- grade responsiva para os iframes -->
+  <style>
+    .video-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 12px;
+    }
+    @media (max-width: 1100px){
+      .video-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px){
+      .video-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="video-grid">
+    <!-- Vídeo 1 -->
+    <div class="yt-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/tObxHPsB1LI?rel=0"
+        title="Stone The Creator - Vídeo 1"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Vídeo 2 -->
+    <div class="yt-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/6jvpaf6UgfU?rel=0"
+        title="Stone The Creator - Vídeo 2"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Vídeo 3 (novo, começando aos 167s) -->
+    <div class="yt-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/_oTfk5aukQc?start=167&rel=0"
+        title="Stone The Creator - Vídeo 3 (início em 167s)"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Contato (novo layout) -->
+    <section id="contato" class="section" aria-labelledby="contato-title">
+      <h2 id="contato-title">Contato</h2>
+      <p>Bookings, colaborações e artes sob encomenda:</p>
+
+      <form class="contact-form" action="#" method="post">
+        <div class="grid">
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+          </div>
+
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+          </div>
+
+          <div class="field span-2">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Como posso te ajudar?" required></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit">Enviar</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Player -->
+    <section id="player" class="section" aria-labelledby="player-title">
+      <h2 id="player-title">Ouça minhas faixas</h2>
+      <p>Press play e viaje nas camadas. Escolha uma faixa da playlist abaixo 👇</p>
+
+      <div class="player">
+        <div class="player-header">
+          <img class="cover"
+               src="WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg"
+               alt="Capa da faixa atual" />
+          <div>
+            <p class="now-playing-label">Tocando agora</p>
+            <h3 class="now-playing-title">Stone The Creator — ATLANTIS (Mastered)</h3>
+          </div>
+        </div>
+
+        <audio id="audio" controls preload="none" class="audio-bar">
+          <source
+            src="musicas/ATLANTIS%20Stone%20The%20Creator%2CMarsaw%20-%20Track1%20V2%20%28Mastered%29.wav"
+            type="audio/wav" />
+          Seu navegador não suporta o elemento de áudio.
+        </audio>
+
+        <ul class="tracklist" id="tracklist">
+          <li class="track active"
+              data-src="musicas/ATLANTIS%20Stone%20The%20Creator%2CMarsaw%20-%20Track1%20V2%20%28Mastered%29.wav"
+              data-title="Stone The Creator & Marsaw — ATLANTIS (Mastered)"
+              data-cover="WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg">
+            <span class="index">01</span>
+            <div class="meta">
+              <strong>ATLANTIS (Mastered)</strong>
+              <small>138–145 BPM • Psytrance</small>
+            </div>
+            <button class="btn btn-mini play" type="button">Play</button>
+          </li>
+
+          <!-- Exemplo de futuras faixas -->
+          <li class="track"
+              data-src="musicas/stone_quantum_genius.mp3"
+              data-title="Stone The Creator — Quantum Genius"
+              data-cover="WhatsApp%20Image%202025-10-14%20at%2017.32.07.jpeg">
+            <span class="index">02</span>
+            <div class="meta">
+              <strong>Quantum Genius</strong>
+              <small>142 BPM • Full-On</small>
+            </div>
+            <button class="btn btn-mini play" type="button">Play</button>
+          </li>
+        </ul>
+
+        <div class="controls-row">
+          <button id="prevBtn" class="btn btn-ghost" type="button" aria-label="Faixa anterior">◀ Anterior</button>
+          <button id="nextBtn" class="btn" type="button" aria-label="Próxima faixa">Próxima ▶</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2025 — Stone The Creator • feito com amor, café e com muito som</footer>
+  </div>
+
+  <!-- JS embutido (playlist funcional) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("audio");
+      const tracklist = document.getElementById("tracklist");
+      const nowTitle = document.querySelector(".now-playing-title");
+      const cover = document.querySelector(".player .cover");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      const tracks = Array.from(tracklist.querySelectorAll(".track"));
+      let current = tracks.findIndex(li => li.classList.contains("active"));
+      if (current < 0) current = 0;
+
+      function setActive(index, autoplay = true) {
+        tracks.forEach(li => li.classList.remove("active"));
+        current = (index + tracks.length) % tracks.length;
+
+        const li = tracks[current];
+        li.classList.add("active");
+
+        const src = li.dataset.src;
+        const title = li.dataset.title || li.querySelector("strong")?.textContent || "Faixa";
+        const img = li.dataset.cover;
+
+        if (!src) { console.warn("Track sem data-src:", li); return; }
+
+        nowTitle.textContent = title;
+        if (img) cover.src = img;
+
+        audio.src = src;
+        audio.load();
+
+        if (autoplay) {
+          audio.play().catch((err) => {
+            console.warn("Play bloqueado/falhou (precisa de interação do usuário):", err);
+          });
+        }
+      }
+
+      tracks.forEach((li, idx) => {
+        li.addEventListener("click", (e) => {
+          if (e.target.closest(".play")) e.preventDefault();
+          setActive(idx, true);
+        });
+        const btn = li.querySelector(".play");
+        btn?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setActive(idx, true);
+        });
+      });
+
+      prevBtn?.addEventListener("click", () => setActive(current - 1, true));
+      nextBtn?.addEventListener("click", () => setActive(current + 1, true));
+      audio.addEventListener("ended", () => setActive(current + 1, true));
+
+      audio.addEventListener("error", () => {
+        const code = audio.error?.code;
+        let msg = "Não foi possível carregar a faixa.";
+        if (code === 4) msg += " Verifique o caminho/nome do arquivo e o type (audio/wav).";
+        console.error(msg, audio.src);
+        const label = document.querySelector(".now-playing-label");
+        if (label) label.textContent = "Erro ao carregar a faixa";
+      });
+
+      setActive(current, false);
+    });
+  </script>
+</body>
+</html>
