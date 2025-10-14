@@ -17,3 +17,10 @@ Site estático com estética psicodélica: tipografia futurista, layout responsi
 - Formulário semântico e acessível
 
 ## Estrutura
+/
+├─ index.html
+├─ img/
+├─ musicas/
+├─ README.md
+├─ LICENSE
+└─ .gitignore
