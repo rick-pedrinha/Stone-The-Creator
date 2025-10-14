@@ -1,2 +1,19 @@
 Stone The Creator — estudo de HTML/CSS (com JS)
-Site estático desenvolvido como estudo de front-end, inspirado na estética psicodélica. Explora tipografia futurista (Orbitron, Fraunces e Inter), paleta “neon/verde Monster”, layout responsivo em grid e boas práticas de acessibilidade. Inclui hero com avatar, galeria de imagens, seção “Lançamentos”, player de áudio com playlist (WAV/MP3) e três vídeos do YouTube em grade responsiva. O formulário de contato foi construído com HTML semântico e rótulos acessíveis. O projeto não usa frameworks — apenas HTML, CSS moderno e um JS leve para o player — e foi pensado para deploy simples via GitHub Pages/Netlify. Ideal para treinar organização de pastas, encoding de URLs com espaços, media queries e micro-interações visuais.
+# Stone The Creator — Estudo de HTML/CSS
+
+Site estático com estética psicodélica: tipografia futurista, layout responsivo, galeria, lançamentos, player de áudio (WAV/MP3) e vídeos do YouTube. Feito só com **HTML + CSS + JS leve**, pensado para **GitHub Pages**.
+
+![preview](img/preview.png)
+
+## Demo
+🔗 https://SEU-USUARIO.github.io/stone-the-creator/  <!-- troque quando publicar -->
+
+## Recursos
+- Design responsivo (Grid/Flex)
+- Cabeçalho com avatar e tipografia Orbitron/Fraunces/Inter
+- Galeria e seção de lançamentos
+- Player de áudio com playlist
+- Vídeos do YouTube em grade responsiva
+- Formulário semântico e acessível
+
+## Estrutura
