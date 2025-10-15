@@ -3,7 +3,7 @@
 Site estático com estética psicodélica para o projeto **Stone The Creator**.  
 Foco em **layout responsivo**, **tipografia futurista**, **player de áudio** e **integração com YouTube** — tudo com **HTML + CSS + JS** puro, ideal para estudo e portfólio.
 
-http://127.0.0.1:5500/index.html
+https://stonethecreator.netlify.app
 
 ---
 
